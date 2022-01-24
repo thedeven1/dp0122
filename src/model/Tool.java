@@ -17,7 +17,7 @@ public class Tool {
 		//read in json parse in 
 		ObjectMapper objMapper = new ObjectMapper();
 		try {
-			JsonNode catalog = objMapper.readTree(Files.readAllBytes(Paths.get("/Users/deven/Documents/dp0122/src/model/toolCatalog.json")));
+			JsonNode catalog = objMapper.readTree(Files.readAllBytes(Paths.get("src/model/toolCatalog.json")));
 			return catalog;
 		}catch(IOException ioExeption){
 			System.out.print("An error occured parsing the tool catalog");
@@ -26,36 +26,36 @@ public class Tool {
 	}
 	private Tool() {};
 	public Tool(String requestedToolCode) {
-		this.setToolCode(requestedToolCode);
+		Tool.setToolCode(requestedToolCode);
 		for(JsonNode toolInfo : toolCatalog.get("tools")) {
 			if(toolInfo.get("typeCode").asText().equals(requestedToolCode)) {
-				this.setToolType(toolInfo.get("typeName").asText());
-				this.setBrand( toolInfo.get("brand").asText());
+				Tool.setToolType(toolInfo.get("typeName").asText());
+				Tool.setBrand(toolInfo.get("brand").asText());
 			}
 		}
 	};
 	
-	public String getToolCode() {
+	public static String getToolCode() {
 		return toolCode;
 	}
 	
-	private void setToolCode(String toolCode) {
+	private static void setToolCode(String toolCode) {
 		Tool.toolCode = toolCode;
 	}
 	
-	public String getToolType() {
+	public static String getToolType() {
 		return toolType;
 	}
 	
-	private void setToolType(String toolType) {
+	private static void setToolType(String toolType) {
 		Tool.toolType = toolType;
 	}
 	
-	public String getBrand() {
+	public static String getBrand() {
 		return brand;
 	}
 	
-	private void setBrand(String brand) {
+	private static void setBrand(String brand) {
 		Tool.brand = brand;
 	}
 	
