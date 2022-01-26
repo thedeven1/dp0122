@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import model.RentalAgreement;
-import model.Tool;
+import model.ToolPriceGuide;
 
 public class RentalAgreementGenerator {
 	
@@ -26,6 +26,10 @@ public class RentalAgreementGenerator {
 	
 	public static void printRentalAgreement() {
 		
+	}
+	
+	public static void setPricingFields(String toolCode) {
+		new ToolPriceGuide(toolCode);
 	}
 
 }

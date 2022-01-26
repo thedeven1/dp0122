@@ -1,7 +1,6 @@
 package model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -11,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ToolPriceGuide {
 	
 	private static String toolType;
-	private static BigDecimal dailyCharge;
+	private static Double dailyCharge;
 	private static boolean weekdayCharge;
 	private static boolean weekendCharge;
 	private static boolean holidayCharge;
@@ -29,14 +28,17 @@ public class ToolPriceGuide {
 		}
 	}
 	private ToolPriceGuide() {};
-	public ToolPriceGuide(String requestedToolType) {
+	public ToolPriceGuide(String requestedToolCode) {
+		new Tool(requestedToolCode);
+		String requestedToolType = Tool.getToolType();
 		ToolPriceGuide.setToolType(requestedToolType);
 		for(JsonNode toolPricing : pricingCatalog.get("pricing")) {
 			if(toolPricing.get("toolType").asText().equals(requestedToolType)) {
 				ToolPriceGuide.setToolType(toolPricing.get("toolType").asText());
-				ToolPriceGuide.setDailyCharge(new BigDecimal(toolPricing.get("toolType").asDouble()));
+				ToolPriceGuide.setDailyCharge(toolPricing.get("dailyCharge").doubleValue());
+				ToolPriceGuide.setWeekendCharge(toolPricing.get("weekendCharge").asBoolean());
 				ToolPriceGuide.setWeekdayCharge(toolPricing.get("weekdayCharge").asBoolean());
-				
+				ToolPriceGuide.setHolidayCharge(toolPricing.get("holidayCharge").asBoolean());	
 			}
 		}
 	};
@@ -50,12 +52,12 @@ public class ToolPriceGuide {
 		ToolPriceGuide.toolType = toolType;
 	}
 	
-	public static BigDecimal getDailyCharge() {
+	public static Double getDailyCharge() {
 		return dailyCharge;
 	}
 	
-	private static void setDailyCharge(BigDecimal brand) {
-		ToolPriceGuide.dailyCharge = brand;
+	private static void setDailyCharge(Double dailyCharge) {	
+		ToolPriceGuide.dailyCharge = dailyCharge;
 	}
 	public static boolean isWeekdayCharge() {
 		return weekdayCharge;
