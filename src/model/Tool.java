@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Tool {
-	private static String toolCode; 
-	private static String toolType;
-	private static String brand;
-	private static JsonNode toolCatalog = initCatalog();
+	
+	private static Tool tool = null;
+	private String toolCode; 
+	private String toolType;
+	private String brand;
+	private JsonNode toolCatalog = initCatalog();
 	
 	private static JsonNode initCatalog() {
 		//read in json parse in 
@@ -25,38 +27,45 @@ public class Tool {
 		}
 	}
 	private Tool() {};
-	public Tool(String requestedToolCode) {
-		Tool.setToolCode(requestedToolCode);
+	private Tool(String requestedToolCode) {
+		setToolCode(requestedToolCode);
 		for(JsonNode toolInfo : toolCatalog.get("tools")) {
 			if(toolInfo.get("typeCode").asText().equals(requestedToolCode)) {
-				Tool.setToolType(toolInfo.get("typeName").asText());
-				Tool.setBrand(toolInfo.get("brand").asText());
+				setToolType(toolInfo.get("typeName").asText());
+				setBrand(toolInfo.get("brand").asText());
 			}
 		}
 	};
 	
-	public static String getToolCode() {
+	public static Tool newToolInstance(String requestedToolCode) {
+		if(tool == null) {
+			tool = new Tool(requestedToolCode);
+		}
+		return tool;
+	}
+	
+	public String getToolCode() {
 		return toolCode;
 	}
 	
-	private static void setToolCode(String toolCode) {
-		Tool.toolCode = toolCode;
+	private void setToolCode(String toolCode) {
+		this.toolCode = toolCode;
 	}
 	
-	public static String getToolType() {
+	public String getToolType() {
 		return toolType;
 	}
 	
-	private static void setToolType(String toolType) {
-		Tool.toolType = toolType;
+	private void setToolType(String toolType) {
+		this.toolType = toolType;
 	}
 	
-	public static String getBrand() {
+	public String getBrand() {
 		return brand;
 	}
 	
-	private static void setBrand(String brand) {
-		Tool.brand = brand;
+	private void setBrand(String brand) {
+		this.brand = brand;
 	}
 	
 }

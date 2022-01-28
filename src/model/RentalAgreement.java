@@ -1,79 +1,98 @@
 package model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class RentalAgreement {
-	private static Tool customerTool;
-	private static int rentalDayCount;
-	private static LocalDate checkoutDate;
-	private static LocalDate dueDate;
-	private static BigDecimal dailyRentalCharge;
-	private static int chargeDaysCount;
-	private static BigDecimal prediscountCharge;
-	private static int discountPercentage;
-	private static BigDecimal discountAmount;
-	private static BigDecimal finalCharge;
+	private Tool customerTool;
+	private int rentalDayCount;
+	private LocalDate checkoutDate;
+	private LocalDate dueDate;
+	private Double dailyRentalCharge;
+	private int chargeDaysCount;
+	private Double prediscountCharge;
+	private int discountPercentage;
+	private Double discountAmount;
+	private Double finalCharge;
 	
-	public static Tool getCustomerTool() {
+	public void printRentalAgreement() {
+		System.out.println("Tool code: " + this.customerTool.getToolCode());
+		System.out.println("Tool type: " + this.customerTool.getToolType());
+		System.out.println("Tool brand: " + this.customerTool.getBrand());
+		System.out.println("Rental days: " + this.getRentalDayCount());
+		System.out.println("Check out date: " 
+				+ this.getCheckoutDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+		System.out.println("Due date: " 
+					+ this.getDueDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+		System.out.println("Daily rental charge: " + this.getDailyRentalCharge());
+		System.out.println("Charge days: " +  this.getChargeDaysCount());
+		System.out.println("Pre-discount charge: " + this.getPrediscountCharge());
+		System.out.println("Discount percent: " + this.getDiscountPercentage());
+		System.out.println("Discount amount: " + this.getDiscountAmount());
+		System.out.println("Final charge: " + this.getFinalCharge());
+
+	}
+
+	public Tool getCustomerTool() {
 		return customerTool;
 	}
-	public static void setCustomerTool(String toolCode) {
-		RentalAgreement.customerTool = new Tool(toolCode);
+	public void setCustomerTool(String toolCode) {
+		this.customerTool = Tool.newToolInstance(toolCode);
 	}
-	public static int getRentalDayCount() {
+	public int getRentalDayCount() {
 		return rentalDayCount;
 	}
-	public static void setRentalDayCount(int rentalDayCount) {
-		RentalAgreement.rentalDayCount = rentalDayCount;
+	public void setRentalDayCount(int rentalDayCount) {
+		this.rentalDayCount = rentalDayCount;
 	}
-	public static LocalDate getCheckoutDate() {
+	public  LocalDate getCheckoutDate() {
 		return checkoutDate;
 	}
-	public static void setCheckoutDate(LocalDate checkoutDate) {
-		RentalAgreement.checkoutDate = checkoutDate;
+	public void setCheckoutDate(LocalDate checkoutDate) {
+		this.checkoutDate = checkoutDate;
 	}
-	public static LocalDate getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
-	public static void setDueDate(LocalDate dueDate) {
-		RentalAgreement.dueDate = dueDate;
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
 	}
-	public static BigDecimal getDailyRentalCharge() {
+	public Double getDailyRentalCharge() {
 		return dailyRentalCharge;
 	}
-	public static void setDailyRentalCharge(BigDecimal dailyRentalCharge) {
-		RentalAgreement.dailyRentalCharge = dailyRentalCharge;
+	public void setDailyRentalCharge(Double dailyRentalCharge) {
+		this.dailyRentalCharge = dailyRentalCharge;
 	}
-	public static int getChargeDaysCount() {
+	public int getChargeDaysCount() {
 		return chargeDaysCount;
 	}
-	public static void setChargeDaysCount(int chargeDaysCount) {
-		RentalAgreement.chargeDaysCount = chargeDaysCount;
+	public void setChargeDaysCount(int chargeDaysCount) {
+		this.chargeDaysCount = chargeDaysCount;
 	}
-	public static BigDecimal getPrediscountCharge() {
+	public Double getPrediscountCharge() {
 		return prediscountCharge;
 	}
-	public static void setPrediscountCharge(BigDecimal prediscountCharge) {
-		RentalAgreement.prediscountCharge = prediscountCharge;
+	public void setPrediscountCharge(Double prediscountCharge) {
+		this.prediscountCharge = prediscountCharge;
 	}
-	public static int getDiscountPercentage() {
+	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
-	public static void setDiscountPercentage(int discountPercentage) {
-		RentalAgreement.discountPercentage = discountPercentage;
+	public void setDiscountPercentage(int discountPercentage) {
+		this.discountPercentage = discountPercentage;
 	}
-	public static BigDecimal getDiscountAmount() {
+	public Double getDiscountAmount() {
 		return discountAmount;
 	}
-	public static void setDiscountAmount(BigDecimal discountAmount) {
-		RentalAgreement.discountAmount = discountAmount;
+	public void setDiscountAmount(Double discountAmount) {
+		this.discountAmount = discountAmount;
 	}
-	public static BigDecimal getFinalCharge() {
+	public Double getFinalCharge() {
 		return finalCharge;
 	}
-	public static void setFinalCharge(BigDecimal finalCharge) {
-		RentalAgreement.finalCharge = finalCharge;
+	public void setFinalCharge(Double finalCharge) {
+		this.finalCharge = finalCharge;
 	}
 	
 }
