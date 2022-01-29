@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -17,6 +18,7 @@ public class RentalAgreement {
 	private Double finalCharge;
 	
 	public void printRentalAgreement() {
+		DecimalFormat df = new DecimalFormat("#0.00");
 		System.out.println("Tool code: " + this.customerTool.getToolCode());
 		System.out.println("Tool type: " + this.customerTool.getToolType());
 		System.out.println("Tool brand: " + this.customerTool.getBrand());
@@ -25,12 +27,12 @@ public class RentalAgreement {
 				+ this.getCheckoutDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
 		System.out.println("Due date: " 
 					+ this.getDueDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
-		System.out.println("Daily rental charge: $" + this.getDailyRentalCharge());
+		System.out.println("Daily rental charge: $" + df.format(this.getDailyRentalCharge()));
 		System.out.println("Charge days: " +  this.getChargeDaysCount());
-		System.out.println("Pre-discount charge: $" + this.getPrediscountCharge());
+		System.out.println("Pre-discount charge: $" + df.format(this.getPrediscountCharge()));
 		System.out.println("Discount percent: " + this.getDiscountPercentage()+"%");
-		System.out.println("Discount amount: $" + this.getDiscountAmount());
-		System.out.println("Final charge: $" + this.getFinalCharge());
+		System.out.println("Discount amount: $" + df.format(this.getDiscountAmount()));
+		System.out.println("Final charge: $" + df.format(this.getFinalCharge()));
 
 	}
 
@@ -38,7 +40,7 @@ public class RentalAgreement {
 		return customerTool;
 	}
 	public void setCustomerTool(String toolCode) {
-		this.customerTool = Tool.newToolInstance(toolCode);
+		this.customerTool = new Tool(toolCode);
 	}
 	public int getRentalDayCount() {
 		return rentalDayCount;

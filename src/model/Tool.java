@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Tool {
-	
-	private static Tool tool = null;
 	private String toolCode; 
 	private String toolType;
 	private String brand;
@@ -27,7 +25,7 @@ public class Tool {
 		}
 	}
 	private Tool() {};
-	private Tool(String requestedToolCode) {
+	public Tool(String requestedToolCode) {
 		setToolCode(requestedToolCode);
 		for(JsonNode toolInfo : toolCatalog.get("tools")) {
 			if(toolInfo.get("typeCode").asText().equals(requestedToolCode)) {
@@ -36,13 +34,6 @@ public class Tool {
 			}
 		}
 	};
-	
-	public static Tool newToolInstance(String requestedToolCode) {
-		if(tool == null) {
-			tool = new Tool(requestedToolCode);
-		}
-		return tool;
-	}
 	
 	public String getToolCode() {
 		return toolCode;

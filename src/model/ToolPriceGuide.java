@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ToolPriceGuide {
 	
-	private static ToolPriceGuide priceGuide = null;
 	private String toolType;
 	private Double dailyCharge;
 	private boolean weekdayCharge;
@@ -28,8 +27,8 @@ public class ToolPriceGuide {
 		}
 	}
 	
-	private ToolPriceGuide(String requestedToolCode) {
-		Tool requestedTool = Tool.newToolInstance(requestedToolCode);
+	public ToolPriceGuide(String requestedToolCode) {
+		Tool requestedTool = new Tool(requestedToolCode);
 		String requestedToolType = requestedTool.getToolType();
 		
 		this.setToolType(requestedToolType);
@@ -43,15 +42,7 @@ public class ToolPriceGuide {
 			}
 		}
 	};
-	
-	public static ToolPriceGuide pricingGuideNewInstance(String requestedToolCode) {
-		if(priceGuide == null) {
-			priceGuide =  new ToolPriceGuide(requestedToolCode);
-		}
-		return priceGuide;		
-	}
-	
-	
+
 	public String getToolType() {
 		return toolType;
 	}

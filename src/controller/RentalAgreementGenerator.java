@@ -17,7 +17,7 @@ public class RentalAgreementGenerator {
 	public static RentalAgreement generateRentalAgreement(String toolCode, int rentalDayCount, 
 			int discountPercentage, LocalDate checkoutDate) {
 	
-		priceGuide = ToolPriceGuide.pricingGuideNewInstance(toolCode);
+		priceGuide = new ToolPriceGuide(toolCode);
 		rentalAgreement.setCustomerTool(toolCode);
 		rentalAgreement.setRentalDayCount(rentalDayCount);
 		rentalAgreement.setCheckoutDate(checkoutDate);
@@ -50,7 +50,7 @@ public class RentalAgreementGenerator {
 		if(rentalDayCount > 0) {
 			int chargeDaysCount = 0;
 			DayOfWeek dayOfWeek = checkoutDate.getDayOfWeek();
-			if(weekdayCharged && dayOfWeek.getValue() <= 5) {
+			if(weekdayCharged && dayOfWeek.getValue() <= 5 && !isHoliday(checkoutDate)) {
 				chargeDaysCount++;
 			}
 			if(weekendCharged && dayOfWeek.getValue()>= 6) {
@@ -68,10 +68,14 @@ public class RentalAgreementGenerator {
 	}
 	
 	private static boolean isHoliday(LocalDate checkoutDate) {	
-		if(checkoutDate.getMonth().equals(Month.JULY) && checkoutDate.getDayOfMonth() == 4) {
+		if(checkoutDate.getDayOfWeek().getValue() < 6 && checkoutDate.getMonth().equals(Month.JULY) && checkoutDate.getDayOfMonth() == 4) {
+			return true;
+		}else if(checkoutDate.getDayOfWeek().getValue() == 5 && checkoutDate.getMonth().equals(Month.JULY) && checkoutDate.getDayOfMonth() == 3) {
+			return true;	
+		}else if(checkoutDate.getDayOfWeek().getValue() == 1 && checkoutDate.getMonth().equals(Month.JULY) && checkoutDate.getDayOfMonth() == 5) {
 			return true;
 		}else if(checkoutDate.getMonth().equals(Month.SEPTEMBER) 
-				&& checkoutDate.getDayOfMonth() < 7 
+				&& checkoutDate.getDayOfMonth() <= 7 
 				&& checkoutDate.getDayOfWeek().equals(DayOfWeek.MONDAY)){
 			return true;
 		}
