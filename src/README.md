@@ -1,0 +1,1 @@
+This tool rental application can be run with command line arguments toolCode, rentalDayCount, discountPercentage, checkoutDate, or can accept user input if no arguments are provided.
