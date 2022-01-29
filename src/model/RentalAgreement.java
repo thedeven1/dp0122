@@ -25,12 +25,12 @@ public class RentalAgreement {
 				+ this.getCheckoutDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
 		System.out.println("Due date: " 
 					+ this.getDueDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
-		System.out.println("Daily rental charge: " + this.getDailyRentalCharge());
+		System.out.println("Daily rental charge: $" + this.getDailyRentalCharge());
 		System.out.println("Charge days: " +  this.getChargeDaysCount());
-		System.out.println("Pre-discount charge: " + this.getPrediscountCharge());
-		System.out.println("Discount percent: " + this.getDiscountPercentage());
-		System.out.println("Discount amount: " + this.getDiscountAmount());
-		System.out.println("Final charge: " + this.getFinalCharge());
+		System.out.println("Pre-discount charge: $" + this.getPrediscountCharge());
+		System.out.println("Discount percent: " + this.getDiscountPercentage()+"%");
+		System.out.println("Discount amount: $" + this.getDiscountAmount());
+		System.out.println("Final charge: $" + this.getFinalCharge());
 
 	}
 
@@ -79,8 +79,8 @@ public class RentalAgreement {
 	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
-	public void setDiscountPercentage(int discountPercentage) {
-		this.discountPercentage = discountPercentage;
+	public void setDiscountPercentage(int discountPercentage) {		
+			this.discountPercentage = discountPercentage;
 	}
 	public Double getDiscountAmount() {
 		return discountAmount;
